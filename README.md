@@ -12,34 +12,66 @@ A real-time messaging application with user authentication, personal and group c
 - Chat customization for group chats
 - Message status (read/unread)
 
-## Tech Stack
+## Docker Setup
 
-- **Backend**: Node.js, Express.js
-- **Database**: MongoDB
-- **Real-time Communication**: Socket.IO
-- **Authentication**: JWT (JSON Web Tokens)
-- **Password Hashing**: bcrypt
+The application is containerized using Docker and can be run with Docker Compose.
 
-## Prerequisites
+### Prerequisites
 
-- Node.js (v14.x or higher)
-- MongoDB (local or Atlas)
-- npm or yarn
+- [Docker](https://docs.docker.com/get-docker/)
+- [Docker Compose](https://docs.docker.com/compose/install/)
 
-## Installation
+### Running with Docker
 
 1. Clone the repository:
-   ```
-   git clone <repository-url>
+   ```bash
+   git clone https://github.com/yourusername/realtime-messenger.git
    cd realtime-messenger
    ```
 
-2. Install dependencies:
+2. Create environment files:
+
+   For the backend (`.env`):
    ```
+   PORT=5000
+   MONGODB_URI=mongodb://mongodb:27017/messenger
+   JWT_SECRET=your_secure_jwt_secret_key_here
+   JWT_EXPIRES_IN=7d
+   ```
+
+   For the frontend (`client/.env`):
+   ```
+   VITE_API_URL=http://localhost
+   ```
+
+3. Start the application:
+   ```bash
+   docker-compose up -d
+   ```
+
+4. Access the application:
+   - Frontend: http://localhost
+   - Backend API: http://localhost/api
+   - MongoDB: mongodb://localhost:27017
+
+### Development with Docker
+
+For development with hot-reloading:
+
+```bash
+docker-compose -f docker-compose.dev.yml up
+```
+
+## Manual Setup
+
+### Backend
+
+1. Install dependencies:
+   ```bash
    npm install
    ```
 
-3. Create a `.env` file in the root directory with the following content:
+2. Create a `.env` file with the following variables:
    ```
    PORT=5000
    MONGODB_URI=mongodb://localhost:27017/messenger
@@ -47,13 +79,30 @@ A real-time messaging application with user authentication, personal and group c
    JWT_EXPIRES_IN=7d
    ```
 
-4. Start the server:
+3. Start the server:
+   ```bash
+   npm run dev
    ```
-   npm start
+
+### Frontend
+
+1. Navigate to the client directory:
+   ```bash
+   cd client
    ```
-   
-   For development with auto-reload:
+
+2. Install dependencies:
+   ```bash
+   npm install
    ```
+
+3. Create a `.env` file with the following variables:
+   ```
+   VITE_API_URL=http://localhost:5000
+   ```
+
+4. Start the development server:
+   ```bash
    npm run dev
    ```
 
