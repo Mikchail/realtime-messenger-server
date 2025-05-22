@@ -35,18 +35,6 @@ services:
     networks:
       - app-network
 
-  frontend:
-    build:
-      context: ./client
-      dockerfile: Dockerfile
-    container_name: frontend
-    restart: always
-    ports:
-      - "80:80"
-    depends_on:
-      - backend
-    networks:
-      - app-network
 
 volumes:
   mongodb_data:
