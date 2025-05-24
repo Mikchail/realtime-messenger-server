@@ -84,7 +84,11 @@ exports.getChats = async (req, res) => {
       select: '-password'
     })
     .populate({
-      path: 'lastMessage'
+      path: 'lastMessage',
+      populate: {
+        path: 'sender',
+        select: '-password'
+      }
     })
     .sort({ updatedAt: -1 });
     
@@ -104,7 +108,11 @@ exports.getChatById = async (req, res) => {
         select: '-password'
       })
       .populate({
-        path: 'lastMessage'
+        path: 'lastMessage',
+        populate: {
+          path: 'sender',
+          select: '-password'
+        }
       });
     
     if (!chat) {
